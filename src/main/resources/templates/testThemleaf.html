@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table >
+    <tr>
+        <th>名字</th>
+        <th>名字</th>
+        <th>性别</th>
+        <th>城市</th>
+    </tr>
+    <tr th:each="wo:${users}">
+        <td  th:text="${wo.nickname}"></td>
+        <td  th:text="${wo.nickname}"></td>
+        <td  th:text="${wo.sexDesc}"></td>
+        <td  th:text="${wo.city}"></td>
+    </tr>
+</table>
+</body>
+</html>
