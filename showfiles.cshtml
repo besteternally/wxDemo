@@ -1,0 +1,73 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>table模块快速使用</title>
+    <link rel="stylesheet" href="~/Content/css/layui.css" media="all" />
+</head>
+<body>
+
+    <div class="demoTable">
+        搜索ID：
+        <div class="layui-inline">
+            <input class="layui-input" name="id" id="demoReload" autocomplete="off">
+        </div>
+        <button class="layui-btn" data-type="reload">搜索</button>
+    </div>
+    <table id="LAY_table_user" lay-filter="test"></table>
+
+    <script type="text/javascript" src="~/Content/layui.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery-3.3.1.js"></script>
+    <script>
+        layui.use('table', function () {
+            var table = layui.table;
+
+            //第一个实例
+            table.render({
+                elem: '#LAY_table_user'
+                , height: 312
+                , url: '/File/getfiles' //数据接口
+                , page: true //开启分页
+                , cols: [[ //表头
+                    { field: 'id', title: 'id', sort: true, fixed: 'left' }
+                    , { field: 'filename', title: 'filename', }
+                    , { field: 'filetype', title: 'filetype', }
+                    , { field: 'filecontent', title: 'filecontent', }
+                ]]
+                , id: 'testReload'
+                , page: true
+                , height: 310
+            });
+
+            var $ = layui.$, active = {
+                reload: function () {
+                    var demoReload = $('#demoReload');
+
+                    //执行重载
+                    table.reload('testReload', {
+                        page: {
+                            curr: 1 //重新从第 1 页开始
+                        }
+                        , where: {
+                           
+                                id: demoReload.val()
+                               
+                            
+                        }
+                    }, 'data');
+                }
+            };
+
+            $('.demoTable .layui-btn').on('click', function () {
+                var type = $(this).data('type');
+                active[type] ? active[type].call(this) : '';
+            });
+        });
+    </script>
+</body>
+</html>
